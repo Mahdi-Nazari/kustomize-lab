@@ -1,0 +1,28 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../02-base-and-overlays/base
+  - namespace.yaml
+
+namespace: kustomize-transformers
+
+namePrefix: lab04-
+
+nameSuffix: -v1
+
+images:
+  - name: nginx
+    newName: docker.io/library/nginx
+    newTag: 1.28-alpine
+
+labels:
+  - pairs:
+      lab: transformers
+      project: kustomize-lab
+    includeSelectors: false
+    includeTemplates: true
+
+commonAnnotations:
+  description: "Kustomize transformers learning exercise"
+  managed-by: "kustomize"
