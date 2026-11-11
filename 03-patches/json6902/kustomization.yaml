@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../01-fundamentals
+
+patches:
+  - path: deployment-json-patch.yaml
+    target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: nginx
