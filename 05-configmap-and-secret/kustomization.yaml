@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - deployment.yaml
+
+configMapGenerator:
+  - name: app-config
+    literals:
+      - APP_ENV=development
+      - APP_MESSAGE=Hello from Kustomize - Updated
+
+secretGenerator:
+  - name: app-secret
+    literals:
+      - DEMO_USERNAME=student
+      - DEMO_PASSWORD=dummy-password
