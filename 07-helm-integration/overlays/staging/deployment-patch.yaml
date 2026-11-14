@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kustomize-nginx-staging
+  annotations:
+    platform.asa.ir/environment: staging
+spec:
+  template:
+    metadata:
+      annotations:
+        platform.asa.ir/environment: staging

@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kustomize-nginx-production
+  annotations:
+    platform.asa.ir/environment: production
+spec:
+  template:
+    metadata:
+      annotations:
+        platform.asa.ir/environment: production
