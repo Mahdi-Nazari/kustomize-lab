@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-monitoring
+data:
+  monitoring.enabled: "true"
+  monitoring.interval: "30s"
+  monitoring.endpoint: "/metrics"
