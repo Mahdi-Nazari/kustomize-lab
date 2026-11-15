@@ -1,0 +1,48 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: kustomize-lab
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
+spec:
+  description: Kustomize learning lab applications
+
+  sourceRepos:
+    - https://github.com/Mahdi-Nazari/kustomize-lab.git
+
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: nginx-development
+
+    - server: https://kubernetes.default.svc
+      namespace: nginx-staging
+
+    - server: https://kubernetes.default.svc
+      namespace: nginx-production
+
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+      name: nginx-development
+
+    - group: ""
+      kind: Namespace
+      name: nginx-staging
+
+    - group: ""
+      kind: Namespace
+      name: nginx-production
+
+  namespaceResourceWhitelist:
+  - group: apps
+    kind: Deployment
+
+  - group: apps
+    kind: ReplicaSet
+
+  - group: ""
+    kind: Service
+
+  - group: ""
+    kind: Pod

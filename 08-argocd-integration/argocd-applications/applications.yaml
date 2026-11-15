@@ -1,0 +1,65 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kustomize-nginx-dev
+  namespace: argocd
+spec:
+  project: kustomize-lab
+  source:
+    repoURL: https://github.com/Mahdi-Nazari/kustomize-lab.git
+    targetRevision: main
+    path: 08-argocd-integration/overlays/development
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nginx-development
+  syncPolicy:
+    automated:
+      enabled: true
+      selfHeal: true
+      prune: false
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kustomize-nginx-staging
+  namespace: argocd
+spec:
+  project: kustomize-lab
+  source:
+    repoURL: https://github.com/Mahdi-Nazari/kustomize-lab.git
+    targetRevision: main
+    path: 08-argocd-integration/overlays/staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nginx-staging
+  syncPolicy:
+    automated:
+      enabled: true
+      selfHeal: true
+      prune: false
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kustomize-nginx-prod
+  namespace: argocd
+spec:
+  project: kustomize-lab
+  source:
+    repoURL: https://github.com/Mahdi-Nazari/kustomize-lab.git
+    targetRevision: main
+    path: 08-argocd-integration/overlays/production
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: nginx-production
+  syncPolicy:
+    automated:
+      enabled: true
+      selfHeal: true
+      prune: false
+    syncOptions:
+      - CreateNamespace=true
