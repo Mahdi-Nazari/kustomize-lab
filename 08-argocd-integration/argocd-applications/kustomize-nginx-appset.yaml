@@ -13,7 +13,7 @@ spec:
 
   # ApplicationSet-level policy
   syncPolicy:
-    applicationsSync: create-update
+    applicationsSync: sync
     preserveResourcesOnDeletion: true
 
   generators:
