@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: kustomize-nginx-dev
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
 spec:
   project: kustomize-lab
   source:
@@ -25,6 +27,8 @@ kind: Application
 metadata:
   name: kustomize-nginx-staging
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
 spec:
   project: kustomize-lab
   source:
@@ -47,6 +51,8 @@ kind: Application
 metadata:
   name: kustomize-nginx-prod
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-options: Prune=false
 spec:
   project: kustomize-lab
   source:
