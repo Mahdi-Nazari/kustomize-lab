@@ -1,0 +1,51 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: kustomize-nginx-appset
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+
+spec:
+  goTemplate: true
+  goTemplateOptions:
+    - missingkey=error
+
+  # ApplicationSet-level policy
+  syncPolicy:
+    applicationsSync: create-update
+    preserveResourcesOnDeletion: true
+
+  generators:
+    - git:
+        repoURL: https://github.com/Mahdi-Nazari/kustomize-lab.git
+        revision: main
+        directories:
+          - path: 08-argocd-integration/overlays/*
+
+  template:
+    metadata:
+      name: '{{if eq .path.basename "development"}}kustomize-nginx-dev{{else if eq .path.basename "production"}}kustomize-nginx-prod{{else}}kustomize-nginx-{{.path.basename}}{{end}}'
+      namespace: argocd
+      annotations:
+        argocd.argoproj.io/sync-options: Prune=false
+
+    spec:
+      project: kustomize-lab
+
+      source:
+        repoURL: https://github.com/Mahdi-Nazari/kustomize-lab.git
+        targetRevision: main
+        path: '{{.path.path}}'
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: 'nginx-{{.path.basename}}'
+
+      syncPolicy:
+        automated:
+          enabled: true
+          selfHeal: true
+          prune: false
+        syncOptions:
+          - CreateNamespace=true

@@ -3,4 +3,5 @@ kind: Kustomization
 
 resources:
   - appproject.yaml
-  - applications.yaml
+  #- applications.yaml
+  - kustomize-nginx-appset.yaml
