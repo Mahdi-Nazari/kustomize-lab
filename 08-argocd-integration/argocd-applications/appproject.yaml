@@ -12,37 +12,35 @@ spec:
     - https://github.com/Mahdi-Nazari/kustomize-lab.git
 
   destinations:
-    - server: https://kubernetes.default.svc
-      namespace: nginx-development
-
-    - server: https://kubernetes.default.svc
-      namespace: nginx-staging
-
-    - server: https://kubernetes.default.svc
-      namespace: nginx-production
+    - namespace: nginx-development
+      server: https://kubernetes.default.svc
+    - namespace: nginx-staging
+      server: https://kubernetes.default.svc
+    - namespace: nginx-production
+      server: https://kubernetes.default.svc
+    - namespace: nginx-testing
+      server: https://kubernetes.default.svc
 
   clusterResourceWhitelist:
     - group: ""
       kind: Namespace
       name: nginx-development
-
     - group: ""
       kind: Namespace
       name: nginx-staging
-
     - group: ""
       kind: Namespace
       name: nginx-production
+    - group: ""
+      kind: Namespace
+      name: nginx-testing
 
   namespaceResourceWhitelist:
   - group: apps
     kind: Deployment
-
   - group: apps
     kind: ReplicaSet
-
   - group: ""
     kind: Service
-
   - group: ""
     kind: Pod
