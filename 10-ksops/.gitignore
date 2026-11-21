@@ -1,0 +1,7 @@
+# Age private keys
+keys.txt
+*.key
+
+# SOPS decrypted files
+*.dec.yaml
+*.decrypted.yaml
